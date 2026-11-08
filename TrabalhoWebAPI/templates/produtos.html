@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados da Pesquisa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+
+        <header class="topo">
+            <a href="/" class="voltar">← Voltar para a busca</a>
+            <h1>Resultados para <span>{{ categoria }}</span></h1>
+        </header>
+
+        <section class="resumo">
+            <h2>Resumo da análise</h2>
+
+            <dl class="numeros">
+                <div class="numero">
+                    <dt>Produtos encontrados</dt>
+                    <dd>{{ total }}</dd>
+                </div>
+                <div class ="numero">
+                    <dt>Maior preço</dt>
+                    <dd>${{ maior }}</dd>
+                </div>
+                <div class="numero">
+                    <dt>Preço médio</dt>
+                    <dd>${{ media }}</dd>
+                </div>
+                <div class="numero">
+                    <dt>Menor preço</dt>
+                    <dd>${{ menor }}</dd>
+                </div>
+                <div class="numero">
+                    <dt>Melhor avaliação</dt>
+                    <dd>{{ melhor_avaliacao }}</dd>
+                </div>
+            </dl>
+
+            <dl class="destaques">
+                <div>
+                    <dt>Mais caro</dt>
+                    <dd>{{ mais_caro }}</dd>
+                </div>
+                <div>
+                    <dt>Mais barato</dt>
+                    <dd>{{ mais_barato }}</dd>
+                </div>
+                <div>
+                    <dt>Melhor avaliado</dt>
+                    <dd>{{ melhor_avaliado }}</dd>
+                </div>
+            </dl>
+        </section>
+
+        {% if produtos %}
+            <ul class="lista-produtos">
+                {% for produto in produtos %}
+                    <li class="produto">
+                        <span class="categoria">{{ produto.categoria }}</span>
+                        <h3>{{ produto.nome }}</h3>
+                        <div class="linha-preco">
+                            <span class="preco">{{ produto.preco }}</span>
+                            <span class="avaliacao">Avaliação: <strong>{{ produto.avaliacao }}</strong></span>
+                        </div>
+                        <a href="/produto/{{ produto.id }}">Ver detalhes</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="vazio">
+                <p>Nenhum produto encontrado para a categoria "{{ categoria }}".</p>
+                <a href="/" class="botao">Tentar outra categoria</a>
+            </div>
+        {% endif %}
+
+    </main>
+</body>
+</html>

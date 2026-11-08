@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Produtos - Web Scraping</title>
+    
+    <!-- Fontes do Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- O seu arquivo CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="pagina-inicial">
+
+    <!-- Cartão centralizado -->
+    <div class="etiqueta-busca">
+        <h1>Catálogo de Produtos</h1>
+        <p class="descricao">Escolha uma categoria para pesquisar no Scraping Sandbox.</p>
+
+        <form action="/pesquisar" method="POST">
+            <label for="categoria">Categoria:</label>
+            
+            <select name="categoria" id="categoria" required>
+                <option value="" disabled selected>Selecione uma categoria...</option>
+                
+                <!-- Categorias que o seu código consegue ler na página inicial -->
+                <option value="Electronics">Eletrônicos</option>
+                <option value="Books">Livros</option>
+                <option value="Toys">Brinquedos</option>
+                <option value="Automotive">Automotivo</option>
+                <option value="Health">Saúde</option>
+                <option value="Food & Beverage">Alimentos & Bebida</option>
+                <option value="Jewelry">Joias</option>
+                <option value="Office Supplies">Papelaria</option>
+                <option value="Pet Supplies">Pets</option>
+                <option value="Music">Música</option>
+                <option value="Art">Arte</option>
+            </select>
+
+            <button type="submit" class="botao">Pesquisar</button>
+        </form>
+    </div>
+
+</body>
+</html>

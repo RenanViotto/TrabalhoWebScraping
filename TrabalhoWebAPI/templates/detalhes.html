@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes: {{ produto.title }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        
+        <header class="topo">
+            <a href="/" class="voltar">← Voltar para a busca</a>
+            <h1>Detalhes do Produto</h1>
+        </header>
+
+        <section class="detalhes-container">
+            
+            <h1>{{ produto.title }}</h1>
+            
+            <!-- Informações Rápidas -->
+            <div class="info-basica">
+                <span>Marca: {{ produto.vendor }}</span>
+                <span>Categoria: {{ produto.category }}</span>
+                <span>Avaliação: {{ produto.rating }} ({{ produto.reviewCount }} reviews)</span>
+            </div>
+
+            <img src="{{ produto.image }}" alt="{{ produto.title }}">
+
+            <p><strong>Descrição:</strong> {{ produto.description }}</p>
+            
+            <h3>Informações Técnicas</h3>
+            <ul class="detalhes-lista">
+                <li><strong>SKU:</strong> {{ produto.sku }}</li>
+                <li><strong>Preço:</strong> ${{ produto.price }}</li>
+                {% if produto.compareAtPrice %}
+                    <li><strong>Preço Original:</strong> <s>${{ produto.compareAtPrice }}</s></li>
+                {% endif %}
+                <li><strong>Estoque:</strong> {% if produto.inStock %} Em estoque {% else %} Esgotado {% endif %}</li>
+                <li><strong>Tags:</strong> {{ produto.tags | join(", ") }}</li>
+            </ul>
+
+            <h3>Variações do Produto</h3>
+            <table class="tabela-variacoes">
+                <thead>
+                    <tr>
+                        <th>Cor</th>
+                        <th>Tamanho</th>
+                        <th>SKU</th>
+                        <th>Preço</th>
+                        <th>Estoque</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for variacao in produto.variants %}
+                        <tr>
+                            <td>{{ variacao.color }}</td>
+                            <td>{{ variacao.size }}</td>
+                            <td>{{ variacao.sku }}</td>
+                            <td>${{ variacao.price }}</td>
+                            <td>{% if variacao.inStock %} Sim {% else %} Não {% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </section>
+    </main>
+</body>
+</html>
